@@ -1,0 +1,46 @@
+{
+  frontend: {
+    downsample_pow: 0,
+
+    normals_scannet: True,
+    sam_path: './models/sam_vit_h_4b8939.pth',
+    normals_path: './models/scannet.pth',
+    num_pts: 100,
+    num_pts_active: 100,
+    include_normals: False,
+
+    normals: {
+      integrator: 'tiled',
+      integration_shape: [240, 320],
+      network_dim: [480, 640],
+    },
+
+    cg_max_iter: 2000,
+    cg_tol: !!float 1e-4,
+
+    check_for_depth_disc: True,
+
+    depth_disc_params: {
+      filter_size: 3,
+      depth_threshold: !!float 0.1,
+      area_keep_ratio: !!float 1e-3,
+    }
+  },
+  sam_params: {
+    # infer_resolution: [768, 1024],
+    infer_resolution: [960, 1280],
+    select_smallest: True,
+
+    nms: True,
+    box_nms_thresh: !!float 0.8,
+
+    iou_threshold: !!float 0.0,
+    stability_threshold: !!float 0.90,
+    filter_edge_points: False,
+    
+    cut_masks_by_edges: False,
+    edge_probs_threshold: 0.1,
+  
+    filter_by_box_size: False,
+  },
+}

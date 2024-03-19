@@ -1,0 +1,96 @@
+{
+  save_path : './results/room_undistort_fin/',
+  save_every: 600,
+  dataset: {
+    type: 'tum_undistort',
+    path: './datasets/TUM_fr1/rgbd_dataset_freiburg1_room/',
+    traj_file: './datasets/TUM_fr1/rgbd_dataset_freiburg1_room/groundtruth.txt',
+    start_id: 000,
+  },
+  frontend: {
+    downsample_pow: 1,
+
+    normals_scannet: True,
+    sam_path: './models/sam_vit_h_4b8939.pth',
+    normals_path: './models/scannet.pth',
+    num_pts: 300,
+    num_pts_active: 100,
+    include_normals: False,
+
+    normals: {
+      integrator: 'tiled',
+      integration_shape: [240, 320],
+      network_dim: [480, 640],
+    },
+
+    cg_max_iter: 1000,
+    cg_tol: !!float 1e-3,
+
+    check_for_depth_disc: True,
+
+    depth_disc_params: {
+      filter_size: 3,
+      depth_threshold: !!float 0.1,
+      area_keep_ratio: !!float 1e-3,
+    }
+  },
+  sam_params: {
+    # infer_resolution: [768, 1024],
+    infer_resolution: [960, 1280],
+    select_smallest: True,
+
+    nms: True,
+    box_nms_thresh: !!float 0.8,
+
+    iou_threshold: !!float 0.0,
+    stability_threshold: !!float 0.90,
+    filter_edge_points: True,
+    
+    cut_masks_by_edges: False,
+    edge_probs_threshold: 0.1,
+  
+    filter_by_box_size: False,
+  },
+  aligment: {
+    opt_supporting: True,
+    cost_params: {
+      normal_loss: 'leclerc',
+      normal_weight: !!float 0.0,
+      depth_median_weight: !!float 0.0,
+    },
+
+    median_loss_weight: !!float 0.0,
+
+    mapping: {
+      supp_every_n: 3,
+      init_steps: 1000,
+      steps: 500,
+      continual_steps: 10,
+    },
+
+    mono_init: True,
+    affine_compensation: True,
+    # pyramid_preprocess: 2,
+    pyramid_min: 0,
+    pyramid_max: 1,
+
+    track: {
+      lr: !!float 5e-3,
+      pyramid_min: 0,
+      pyramid_max: 3,
+      steps: [0, 0, 300],
+    },
+
+    init_frames: 5,
+  },
+  kf: {
+    depth_validity_ratio: !!float 0.60,
+    translation_thresh: !!float 0.25,
+    # rotation_thresh: !!float 30.0,
+  },
+  vis: {
+    pts_show_every: 1,
+  },
+  window_size: 5,
+  paused: False,
+}

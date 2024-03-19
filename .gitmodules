@@ -1,0 +1,3 @@
+[submodule "submodules/batched_normal_integration"]
+	path = submodules/batched_normal_integration
+	url = https://github.com/makezur/batched_normal_integration.git
