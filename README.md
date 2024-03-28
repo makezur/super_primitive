@@ -91,7 +91,7 @@ If you found our code/work useful, please consider citing our publication:
 
 ```bib 
 @inproceedings{Mazur:etal:CVPR2024,
-title={SuperPrimitive: Scene Reconstruction at a Primitive Level},
+title={{SuperPrimitive}: Scene Reconstruction at a Primitive Level},
 author={Kirill Mazur and Gwangbin Bae and Andrew Davison},
 booktitle={IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
 year={2024},
